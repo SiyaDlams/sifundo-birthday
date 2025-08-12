@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love 💕</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2c3e50 50%, #1a1a1a 75%, #0a0a0a 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 12s ease infinite;
+            color: #FFFFFF;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart {
+            position: absolute;
+            animation: floatUp 6s linear infinite;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Cursor Smoke Trail */
+        .smoke-particle {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
+            animation: smokeDissolve 1.5s ease-out forwards;
+        }
+        
+        @keyframes smokeDissolve {
+            0% {
+                transform: scale(0.5);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.4;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        
+        .page {
+            display: none;
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #FF6B35, #FFFFFF, #FF6B35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+            letter-spacing: -2px;
+            text-shadow: 0 0 30px rgba(255, 107, 53, 0.5);
+        }
+        
+        @keyframes titleGlow {
+            0% { 
+                transform: scale(1);
+                filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.3));
+            }
+            100% { 
+                transform: scale(1.02);
+                filter: drop-shadow(0 0 40px rgba(255, 107, 53, 0.6));
+            }
+        }
+        
+        .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 300;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 50px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #FF6B35, #FF8C42);
+            border-radius: 10px;
+            transition: width 1s ease;
+            width: 0%;
+        }
+        
+        .game-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin: 50px 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .game-preview {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            color: #FFFFFF;
+        }
+        
+        .game-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(0, 0, 0, 0.2));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+        
+        .game-preview:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(255, 107, 53, 0.3), 0 0 0 1px rgba(255, 107, 53, 0.5);
+            border-color: #FF6B35;
+        }
+        
+        .game-preview:hover::before {
+            opacity: 1;
+        }
+        
+        .game-preview.locked {
+            opacity: 0.5;
+        }
+        
+        .game-preview.completed {
+            border-color: #00CED1;
+            box-shadow: 0 0 20px rgba(0, 206, 209, 0.5);
+        }
+        
+        .game-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+        
+        .game-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #FF6B35;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+        
+        .game-description {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.85;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 300;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #FF6B35, #E55A2B);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 10px;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255, 107, 53, 0.6);
+            background: linear-gradient(45deg, #E55A2B, #D2691E);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .game-container {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 50px;
+            margin: 40px 0;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            color: #FFFFFF;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .game-area {
+            background: rgba(255, 107, 53, 0.05);
+            border-radius: 24px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: min(350px, 60vh);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .score {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #FF6B35;
+            text-align: center;
+            margin: 20px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        /* Pong Game Styles */
+        #pongCanvas {
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+        }
+        
+        #pongCanvas:hover {
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.5);
+        }
+        
+        .pong-game-info {
+            margin-bottom: 20px;
+        }
+        
+        /* Whac-A-Heart Game Styles */
+        .whac-game-info {
+            margin-bottom: 30px;
+        }
+        
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-label {
+            display: block;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .stat-value {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FF6B35;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .whac-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: min(90vw, 400px);
+            margin: 0 auto;
+            padding: 15px;
+        }
+        
+        .whac-hole {
+            aspect-ratio: 1;
+            background: radial-gradient(circle, #2C3E50 30%, #34495E 70%);
+            border-radius: 50%;
+            position: relative;
+            border: 4px solid rgba(255, 107, 53, 0.3);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .whac-hole:hover {
+            border-color: rgba(255, 107, 53, 0.6);
+            transform: scale(1.05);
+        }
+        
+        .heart-mole {
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 100%);
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .heart-mole.active {
+            transform: translate(-50%, -50%);
+            animation: heartBounce 0.5s ease-in-out;
+        }
+        
+        .heart-mole.hit {
+            animation: heartExplode 0.4s ease-out forwards;
+        }
+        
+        @keyframes heartBounce {
+            0% { transform: translate(-50%, -50%) scale(0.8); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        @keyframes heartExplode {
+            0% { 
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            100% { 
+                transform: translate(-50%, -50%) scale(2) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .heart-mole img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+        
+        /* Quiz Game Styles */
+        .quiz-question {
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(64, 224, 208, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .quiz-question h4 {
+            font-family: 'Dancing Script', cursive;
+            color: #FF6B35;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .option-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(64, 224, 208, 0.4);
+            color: #2C3E50;
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            backdrop-filter: blur(5px);
+            font-size: 1rem;
+        }
+        
+        .option-btn:hover {
+            background: rgba(64, 224, 208, 0.2);
+            border-color: #40E0D0;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(64, 224, 208, 0.3);
+        }
+        
+        .correct {
+            background: rgba(46, 204, 113, 0.4) !important;
+            border-color: #2ecc71 !important;
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.5) !important;
+        }
+        
+        .incorrect {
+            background: rgba(231, 76, 60, 0.4) !important;
+            border-color: #e74c3c !important;
+        }
+        
+        /* Slideshow Styles */
+        .slideshow-container {
+            position: relative;
+            max-width: 600px;
+            margin: 50px auto;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(64, 224, 208, 0.3);
+            border: 2px solid rgba(64, 224, 208, 0.4);
+        }
+        
+        .slide {
+            display: none;
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .slide.active {
+            display: block;
+            animation: slideIn 1s ease-in-out;
+        }
+        
+        @keyframes slideIn {
+            0% { 
+                opacity: 0;
+                transform: scale(1.1);
+            }
+            100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .slide-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 40px 30px 30px;
+            color: white;
+        }
+        
+        .slide-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #FF6B35;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        
+        .slide-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.95;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+        
+        .slideshow-progress {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+        
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .progress-dot.active {
+            background: #40E0D0;
+            box-shadow: 0 0 15px rgba(64, 224, 208, 0.8);
+        }
+        
+        .final-message {
+            text-align: center;
+            margin-top: 50px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 50px 40px;
+            border: 2px solid rgba(255, 107, 53, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            color: #FFFFFF;
+        }
+        
+        .final-message h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FF6B35, #FFD700, #FF6B35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            animation: heartbeat 2s ease-in-out infinite;
+            letter-spacing: -1px;
+            text-shadow: 0 0 30px rgba(255, 107, 53, 0.5);
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .final-message p {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 400;
+        }
+        
+        .back-btn {
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+            margin-top: 30px;
+        }
+        
+        .back-btn:hover {
+            background: linear-gradient(45deg, #a29bfe, #40E0D0);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px 10px;
+            }
+            
+            .main-title {
+                font-size: 2.5rem;
+                margin-bottom: 15px;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: 25px;
+            }
+            
+            .game-preview-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                margin: 20px 0;
+            }
+            
+            .game-preview {
+                padding: 25px 15px;
+            }
+            
+            .game-container {
+                padding: 20px 15px;
+                margin: 15px 0;
+            }
+            
+            .game-area {
+                padding: 15px 10px;
+                min-height: min(280px, 50vh);
+            }
+            
+            .quiz-options {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .whac-grid {
+                max-width: min(85vw, 300px);
+                gap: 8px;
+                padding: 10px;
+            }
+            
+            .slideshow-container {
+                margin: 20px auto;
+                max-width: 95%;
+            }
+            
+            .slide {
+                height: min(250px, 40vh);
+            }
+            
+            .slide-title {
+                font-size: 1.4rem;
+            }
+            
+            .slide-text {
+                font-size: 0.9rem;
+            }
+            
+            .final-message {
+                margin-top: 20px;
+                padding: 25px 15px;
+            }
+            
+            .final-message h2 {
+                font-size: 2.2rem;
+                margin-bottom: 15px;
+            }
+            
+            .final-message p {
+                font-size: 1.1rem;
+                margin-bottom: 15px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.95rem;
+                margin: 6px;
+            }
+            
+            .game-stats {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+            
+            .stat {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .stat-label, .stat-value {
+                display: inline;
+            }
+            
+            #pongCanvas {
+                max-width: 95vw;
+                height: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .game-preview {
+                padding: 20px 12px;
+            }
+            
+            .game-container {
+                padding: 15px 10px;
+            }
+            
+            .whac-grid {
+                max-width: min(80vw, 250px);
+                gap: 6px;
+                padding: 8px;
+            }
+            
+            .final-message h2 {
+                font-size: 1.8rem;
+            }
+            
+            .final-message p {
+                font-size: 1rem;
+            }
+            
+            .game-stats {
+                padding: 12px;
+                gap: 12px;
+            }
+            
+            .stat-value {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+                margin: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
+    <!-- Background Music -->
+    <audio id="backgroundMusic" loop autoplay>
+    <source src="It's_Just_Us.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Main Menu Page -->
+    <div class="page active" id="mainPage">
+        <div class="container">
+            <h1 class="main-title">Happy Birthday My Baby</h1>
+            <p class="subtitle">Three Birthday Challenges Await You</p>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            
+            <div class="game-preview-grid">
+                <div class="game-preview" id="game1Preview">
+                    <img class="game-icon" src="beach.jpg" alt="Pong Arcade Game" style="border-radius: 16px; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
+                    <h3 class="game-title">Ping Pong Challenge</h3>
+                    <p class="game-description">Classic arcade action with a romantic twist! Control your paddle and score points in this fast-paced game of skill and timing!</p>
+                    <button class="btn" id="challenge1Btn">Start Challenge 1</button>
+                </div>
+                
+                <div class="game-preview locked" id="game2Preview">
+                    <img class="game-icon" src="beach.jpg" alt="Whac-A-Heart Game" style="border-radius: 16px; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
+                    <h3 class="game-title">Whac-A-Baldy Challenge</h3>
+                    <p class="game-description">A bald man is popping up everywhere! Test your reflexes and whac him for points in this fast-paced arcade game!</p>
+                    <button class="btn" disabled id="challenge2Btn">🔒 Complete Challenge 1</button>
+                </div>
+                
+                <div class="game-preview locked" id="game3Preview">
+                    <img class="game-icon" src="beach.jpg" alt="Supercar Quiz" style="border-radius: 16px; object-fit: cover;" onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
+                    <h3 class="game-title">Ultimate Supercar Quiz</h3>
+                    <p class="game-description">Think you know supercars? Prepare for the ultimate challenge with questions only true enthusiasts can answer!</p>
+                    <button class="btn" disabled id="challenge3Btn">🔒 Complete Challenge 2</button>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <p style="font-family: 'Playfair Display', serif; font-size: 1.6rem; color: rgba(255, 255, 255, 0.9); text-shadow: 1px 1px 2px rgba(0,0,0,0.3); font-style: italic;">
+                    Complete all three challenges to unlock your special birthday surprise!
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Game 1: Pong Game -->
+    <div class="page" id="game1Page">
+        <div class="container">
+            <h2 class="main-title">Love Pong Challenge</h2>
+            <p class="subtitle">Classic arcade action with romantic flair</p>
+            
+            <div class="game-container">
+                <div class="game-area">
+                    <div class="pong-game-info">
+                        <div class="game-stats">
+                            <div class="stat">
+                                <span class="stat-label">Player:</span>
+                                <span class="stat-value" id="playerScore">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Computer:</span>
+                                <span class="stat-value" id="computerScore">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Round:</span>
+                                <span class="stat-value" id="currentRound">1</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <canvas id="pongCanvas" width="600" height="400" style="border: 2px solid rgba(255, 107, 53, 0.5); border-radius: 15px; background: rgba(0, 0, 0, 0.8);"></canvas>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; margin-bottom: 10px;">
+                            Use ↑ and ↓ arrow keys or W/S keys to control your paddle
+                        </p>
+                        <p style="color: #FF6B35; font-size: 1rem; font-weight: 600;">
+                            First to 5 points wins!
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <button class="btn" id="startPongBtn">Start Pong Game</button>
+                    <button class="btn back-btn" id="pongBackBtn">Back to Menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Game 2: Whac-A-Baldy Game -->
+    <div class="page" id="game2Page">
+        <div class="container">
+            <h2 class="main-title">Whac-A-Baldy Challenge</h2>
+            <p class="subtitle">Catch the bald man before he disappears!</p>
+            
+            <div class="game-container">
+                <div class="game-area">
+                    <div class="whac-game-info">
+                        <div class="game-stats">
+                            <div class="stat">
+                                <span class="stat-label">Score:</span>
+                                <span class="stat-value" id="whacScore">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Time:</span>
+                                <span class="stat-value" id="whacTime">30</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Baldy Hit:</span>
+                                <span class="stat-value" id="whacHits">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="whac-grid" id="whacGrid">
+                        <!-- 9 holes for hearts to pop up -->
+                        <div class="whac-hole" data-hole="0">
+                            <div class="heart-mole" id="heart0"></div>
+                        </div>
+                        <div class="whac-hole" data-hole="1">
+                            <div class="heart-mole" id="heart1"></div>
+                        </div>
+                        <div class="whac-hole" data-hole="2">
+                            <div class="heart-mole" id="heart2"></div>
+                        </div>
+                        <div class="whac-hole" data-hole="3">
+                            <div class="heart-mole" id="heart3"></div>
+                        </div>
+                        <div class="whac-hole" data-hole="4">
+                            <div class="heart-mole" id="heart4"></div>
+                        </div>
+                        <div class="whac-hole" data-hole="5">
+                            <div class="heart-mole" id="heart5"></div>
+                        </div>
+                        <div class="whac-hole" data-hole="6">
+                            <div class="heart-mole" id="heart6"></div>
+                        </div>
+                        <div class="whac-hole" data-hole="7">
+                            <div class="heart-mole" id="heart7"></div>
+                        </div>
+                        <div class="whac-hole" data-hole="8">
+                            <div class="heart-mole" id="heart8"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <button class="btn" id="startWhacBtn">Start Whac-A-Baldy</button>
+                    <button class="btn back-btn" id="whacBackBtn">Back to Menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Game 3: Quiz Game -->
+    <div class="page" id="game3Page">
+        <div class="container">
+            <h2 class="main-title">Love & Supercars Quiz</h2>
+            <p class="subtitle">Test your romantic automotive knowledge!</p>
+            
+            <div class="game-container">
+                <div class="game-area" id="quizGame">
+                    <div id="quizQuestion"></div>
+                    <div class="score" id="quizScore">Score: 0/0</div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <button class="btn" id="startQuizBtn">Start Quiz</button>
+                    <button class="btn back-btn" id="quizBackBtn">Back to Menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Final Birthday Surprise -->
+    <div class="page" id="finalePage">
+        <div class="container">
+            <h2 class="main-title">Your Birthday Surprise!</h2>
+            <p class="subtitle">You've completed all challenges!</p>
+            
+            <div class="slideshow-container" id="slideshowContainer">
+                <div class="slide active" style="background-image: url('love.jpg');">
+                    <div class="slide-overlay">
+                        <h3 class="slide-title">Our First "Fancy" Date</h3>
+                        <p class="slide-text">I will never forget our first fancy date. You looked like a dream and I felt like the luckiest person in the room. You made it one of the most special nights ever.</p>
+                    </div>
+                </div>
+                
+                <div class="slide" style="background-image: url('love2.jpg');">
+                    <div class="slide-overlay">
+                        <h3 class="slide-title">You're My Biggest Blessing</h3>
+                        <p class="slide-text">You are the answer to prayers I whispered long before I met you and every day with you feels like a gift I will never stop cherishing.</p>
+                    </div>
+                </div>
+                
+                <div class="slide" style="background-image: url('love3.jpg');">
+                    <div class="slide-overlay">
+                        <h3 class="slide-title">Endless Love</h3>
+                        <p class="slide-text">Your love gives me strength, your laughter brings me joy, and your presence makes everything perfect. I'm so lucky we get to spend forever together.</p>
+                    </div>
+                </div>
+                
+                <div class="slide" style="background-image: url('love4.jpg');">
+                    <div class="slide-overlay">
+                        <h3 class="slide-title">Happy Birthday My Love</h3>
+                        <p class="slide-text">Happy Birthday, my love. You light up my life in ways I never imagined, and loving you is my favorite adventure.</p>
+                    </div>
+                </div>
+                
+                <div class="slideshow-progress" id="slideshowProgress">
+                    <div class="progress-dot active"></div>
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot"></div>
+                </div>
+            </div>
+            
+            <div class="final-message" id="finalMessage">
+                <h2>Happy Birthday My Amazing Sifundo!</h2>
+                <p>
+                    Watching you rise above your struggles and become the incredible person you are today fills my heart with so much pride and admiration. Your courage and dedication shine through in everything you do and every blessing that comes your way is a true reflection of your amazing soul.
+                </p>
+                <p>
+                    You are a light in everyone's eyes (whether they always notice it or not). Your presence is felt and appreciated more than you realize and no one should ever make you feel otherwise. I feel so lucky to have found you and I cherish the thought of spending forever by your side.
+                </p>
+                <p style="font-family: 'Playfair Display', serif; color: #40E0D0; font-weight: 600; font-size: 1.8rem; margin-top: 40px; font-style: italic;">
+                    Here's to another year of your strength, kindness and unwavering determination. You inspire me every day and I can't wait to see your growth next year.
+                </p>
+                
+                <button class="btn" id="playAgainBtn" style="margin-top: 30px;">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game state
+        let gameProgress = {
+            game1: false,
+            game2: false,
+            game3: false
+        };
+        
+        // Pong game variables
+        let pongCanvas, pongCtx;
+        let pongGameActive = false;
+        let pongAnimationId;
+        let playerScore = 0;
+        let computerScore = 0;
+        let currentRound = 1;
+        
+        // Game objects
+        let ball = {
+            x: 300,
+            y: 200,
+            dx: 4,
+            dy: 3,
+            radius: 8
+        };
+        
+        let playerPaddle = {
+            x: 20,
+            y: 160,
+            width: 12,
+            height: 80,
+            dy: 0
+        };
+        
+        let computerPaddle = {
+            x: 568,
+            y: 160,
+            width: 12,
+            height: 80,
+            dy: 0
+        };
+        
+        // Input handling
+        let keys = {
+            up: false,
+            down: false,
+            w: false,
+            s: false
+        };
+        
+        // Whac-A-Heart game variables
+        let whacScore = 0;
+        let whacTime = 30;
+        let whacHits = 0;
+        let whacGameActive = false;
+        let whacTimer = null;
+        let whacCountdown = null;
+        let activeHearts = new Set();
+        
+        // Quiz game variables
+        let currentQuizQuestion = 0;
+        let quizScore = 0;
+        const quizQuestions = [
+            {
+                question: "What engine configuration does the Koenigsegg Jesko use?",
+                options: ["V8 Twin-Turbo", "V12 Naturally Aspirated", "V10 Twin-Turbo", "W16 Quad-Turbo"],
+                correct: 0
+            },
+            {
+                question: "Which supercar holds the current production car top speed record?",
+                options: ["Bugatti Chiron Super Sport 300+", "SSC Tuatara", "Hennessey Venom F5", "Koenigsegg Agera RS"],
+                correct: 1
+            },
+            {
+                question: "What does 'Huayra' mean in the Pagani Huayra's name?",
+                options: ["Italian for 'wind'", "God of wind in Quechua", "Founder's daughter's name", "Speed in Latin"],
+                correct: 1
+            },
+            {
+                question: "How much horsepower does the McLaren P1 produce in total (ICE + Electric)?",
+                options: ["903 hp", "950 hp", "986 hp", "1,036 hp"],
+                correct: 0
+            },
+            {
+                question: "Which material is the McLaren F1's chassis primarily made of?",
+                options: ["Aluminum", "Steel", "Carbon Fiber", "Titanium"],
+                correct: 2
+            },
+            {
+                question: "What is the 0-60 mph time of the Rimac Nevera?",
+                options: ["1.85 seconds", "1.97 seconds", "2.1 seconds", "2.3 seconds"],
+                correct: 0
+            },
+            {
+                question: "Which supercar was the first to use active aerodynamics?",
+                options: ["Ferrari F40", "Porsche 959", "McLaren F1", "Bugatti Veyron"],
+                correct: 1
+            },
+            {
+                question: "What does the 'SV' stand for in Lamborghini Aventador SV?",
+                options: ["Super Veloce", "Sport Version", "Special Variant", "Street Version"],
+                correct: 0
+            }
+        ];
+        
+
+        
+        // Floating hearts animation
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = `<svg width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 85C50 85 15 60 15 35C15 25 25 15 35 15C42 15 47 18 50 23C53 18 58 15 65 15C75 15 85 25 85 35C85 60 50 85 50 85Z" fill="rgba(255,255,255,0.8)"/>
+            </svg>`;
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.getElementById('floatingHearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+        
+        setInterval(createFloatingHeart, 800);
+        
+        // Background music control
+        function playBackgroundMusic() {
+            const audio = document.getElementById('backgroundMusic');
+            // Note: Due to browser autoplay policies, music will only play after user interaction
+            audio.play().catch(e => {
+                console.log('Audio autoplay prevented - will play after user interaction');
+            });
+        }
+        
+        function stopBackgroundMusic() {
+            const audio = document.getElementById('backgroundMusic');
+            audio.pause();
+            audio.currentTime = 0;
+        }
+        
+        // Cursor smoke trail
+        let smokeTrail = [];
+        
+        function createSmokeParticle(x, y) {
+            const smoke = document.createElement('div');
+            smoke.className = 'smoke-particle';
+            smoke.style.left = x + 'px';
+            smoke.style.top = y + 'px';
+            
+            // Add some randomness to the position
+            smoke.style.left = (x + (Math.random() - 0.5) * 10) + 'px';
+            smoke.style.top = (y + (Math.random() - 0.5) * 10) + 'px';
+            
+            document.body.appendChild(smoke);
+            
+            setTimeout(() => {
+                smoke.remove();
+            }, 1500);
+        }
+        
+        // Track mouse movement for smoke trail
+        let lastMouseTime = 0;
+        document.addEventListener('mousemove', (e) => {
+            const now = Date.now();
+            if (now - lastMouseTime > 50) { // Throttle to every 50ms
+                createSmokeParticle(e.clientX, e.clientY);
+                lastMouseTime = now;
+            }
+        });
+        
+        // Page navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+        
+        function goToMain() {
+            showPage('mainPage');
+            updateProgress();
+        }
+        
+        function updateProgress() {
+            const completed = Object.values(gameProgress).filter(Boolean).length;
+            const progressPercent = (completed / 3) * 100;
+            document.getElementById('progressFill').style.width = progressPercent + '%';
+            
+            // Update game previews
+            if (gameProgress.game1) {
+                document.getElementById('game1Preview').classList.add('completed');
+                document.getElementById('game2Preview').classList.remove('locked');
+                const btn2 = document.getElementById('challenge2Btn');
+                btn2.disabled = false;
+                btn2.textContent = 'Start Challenge 2';
+            }
+            
+            if (gameProgress.game2) {
+                document.getElementById('game2Preview').classList.add('completed');
+                document.getElementById('game3Preview').classList.remove('locked');
+                const btn3 = document.getElementById('challenge3Btn');
+                btn3.disabled = false;
+                btn3.textContent = 'Start Challenge 3';
+            }
+            
+            if (gameProgress.game3) {
+                document.getElementById('game3Preview').classList.add('completed');
+                setTimeout(() => {
+                    showPage('finalePage');
+                    startSlideshow();
+                }, 1500);
+            }
+        }
+        
+        // Pong Game Functions
+        function initPong() {
+            pongCanvas = document.getElementById('pongCanvas');
+            pongCtx = pongCanvas.getContext('2d');
+            
+            // Make canvas responsive
+            const maxWidth = Math.min(600, window.innerWidth - 40);
+            const aspectRatio = 400 / 600;
+            const canvasHeight = maxWidth * aspectRatio;
+            
+            pongCanvas.width = maxWidth;
+            pongCanvas.height = canvasHeight;
+            pongCanvas.style.width = maxWidth + 'px';
+            pongCanvas.style.height = canvasHeight + 'px';
+            
+            // Update game objects to match new canvas size
+            ball.x = pongCanvas.width / 2;
+            ball.y = pongCanvas.height / 2;
+            playerPaddle.y = (pongCanvas.height - playerPaddle.height) / 2;
+            computerPaddle.x = pongCanvas.width - computerPaddle.width - 20;
+            computerPaddle.y = (pongCanvas.height - computerPaddle.height) / 2;
+        }
+        
+        function startPongGame() {
+            if (!pongCanvas) initPong();
+            
+            playerScore = 0;
+            computerScore = 0;
+            currentRound = 1;
+            pongGameActive = true;
+            
+            resetBall();
+            resetPaddles();
+            updatePongScore();
+            
+            gameLoop();
+        }
+        
+        function resetBall() {
+            ball.x = pongCanvas.width / 2;
+            ball.y = pongCanvas.height / 2;
+            ball.dx = (Math.random() > 0.5 ? 1 : -1) * (3 + Math.random() * 2);
+            ball.dy = (Math.random() - 0.5) * 4;
+        }
+        
+        function resetPaddles() {
+            playerPaddle.y = (pongCanvas.height - playerPaddle.height) / 2;
+            computerPaddle.y = (pongCanvas.height - computerPaddle.height) / 2;
+            playerPaddle.dy = 0;
+            computerPaddle.dy = 0;
+        }
+        
+        function gameLoop() {
+            if (!pongGameActive) return;
+            
+            update();
+            draw();
+            
+            pongAnimationId = requestAnimationFrame(gameLoop);
+        }
+        
+        function update() {
+            // Update player paddle
+            if ((keys.up || keys.w) && playerPaddle.y > 0) {
+                playerPaddle.y -= 6;
+            }
+            if ((keys.down || keys.s) && playerPaddle.y < pongCanvas.height - playerPaddle.height) {
+                playerPaddle.y += 6;
+            }
+            
+            // Update computer paddle (AI)
+            const computerCenter = computerPaddle.y + computerPaddle.height / 2;
+            const ballCenter = ball.y;
+            const diff = ballCenter - computerCenter;
+            
+            // Make AI slightly imperfect for better gameplay
+            if (Math.abs(diff) > 10) {
+                if (diff > 0 && computerPaddle.y < pongCanvas.height - computerPaddle.height) {
+                    computerPaddle.y += Math.min(4.5, Math.abs(diff) * 0.1);
+                } else if (diff < 0 && computerPaddle.y > 0) {
+                    computerPaddle.y -= Math.min(4.5, Math.abs(diff) * 0.1);
+                }
+            }
+            
+            // Update ball position
+            ball.x += ball.dx;
+            ball.y += ball.dy;
+            
+            // Ball collision with top and bottom walls
+            if (ball.y - ball.radius <= 0 || ball.y + ball.radius >= pongCanvas.height) {
+                ball.dy = -ball.dy;
+            }
+            
+            // Ball collision with paddles
+            if (ball.x - ball.radius <= playerPaddle.x + playerPaddle.width &&
+                ball.y >= playerPaddle.y &&
+                ball.y <= playerPaddle.y + playerPaddle.height &&
+                ball.dx < 0) {
+                ball.dx = -ball.dx;
+                ball.dx *= 1.05; // Increase speed slightly
+                
+                // Add some angle based on where ball hits paddle
+                const hitPos = (ball.y - playerPaddle.y) / playerPaddle.height;
+                ball.dy = (hitPos - 0.5) * 8;
+            }
+            
+            if (ball.x + ball.radius >= computerPaddle.x &&
+                ball.y >= computerPaddle.y &&
+                ball.y <= computerPaddle.y + computerPaddle.height &&
+                ball.dx > 0) {
+                ball.dx = -ball.dx;
+                ball.dx *= 1.05; // Increase speed slightly
+                
+                // Add some angle based on where ball hits paddle
+                const hitPos = (ball.y - computerPaddle.y) / computerPaddle.height;
+                ball.dy = (hitPos - 0.5) * 8;
+            }
+            
+            // Scoring
+            if (ball.x < 0) {
+                computerScore++;
+                currentRound++;
+                updatePongScore();
+                if (computerScore >= 5) {
+                    endPongGame(false);
+                } else {
+                    setTimeout(resetBall, 1000);
+                }
+            }
+            
+            if (ball.x > pongCanvas.width) {
+                playerScore++;
+                currentRound++;
+                updatePongScore();
+                if (playerScore >= 5) {
+                    endPongGame(true);
+                } else {
+                    setTimeout(resetBall, 1000);
+                }
+            }
+        }
+        
+        function draw() {
+            // Clear canvas
+            pongCtx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+            pongCtx.fillRect(0, 0, pongCanvas.width, pongCanvas.height);
+            
+            // Draw center line
+            pongCtx.setLineDash([5, 15]);
+            pongCtx.beginPath();
+            pongCtx.moveTo(pongCanvas.width / 2, 0);
+            pongCtx.lineTo(pongCanvas.width / 2, pongCanvas.height);
+            pongCtx.strokeStyle = 'rgba(255, 107, 53, 0.5)';
+            pongCtx.lineWidth = 2;
+            pongCtx.stroke();
+            pongCtx.setLineDash([]);
+            
+            // Draw paddles
+            pongCtx.fillStyle = '#FF6B35';
+            pongCtx.fillRect(playerPaddle.x, playerPaddle.y, playerPaddle.width, playerPaddle.height);
+            pongCtx.fillRect(computerPaddle.x, computerPaddle.y, computerPaddle.width, computerPaddle.height);
+            
+            // Draw ball
+            pongCtx.beginPath();
+            pongCtx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+            pongCtx.fillStyle = '#FFFFFF';
+            pongCtx.fill();
+            
+            // Add glow effect to ball
+            pongCtx.shadowColor = '#FFFFFF';
+            pongCtx.shadowBlur = 10;
+            pongCtx.beginPath();
+            pongCtx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+            pongCtx.fill();
+            pongCtx.shadowBlur = 0;
+        }
+        
+        function updatePongScore() {
+            document.getElementById('playerScore').textContent = playerScore;
+            document.getElementById('computerScore').textContent = computerScore;
+            document.getElementById('currentRound').textContent = currentRound;
+        }
+        
+        function endPongGame(playerWon) {
+            pongGameActive = false;
+            cancelAnimationFrame(pongAnimationId);
+            
+            setTimeout(() => {
+                showPongResults(playerWon);
+            }, 1000);
+        }
+        
+        function showPongResults(playerWon) {
+            const resultHTML = `
+                <div class="quiz-question">
+                    <h4>Love Pong Challenge Complete!</h4>
+                    <div style="display: flex; justify-content: space-around; margin: 30px 0; background: rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px;">
+                        <div style="text-align: center;">
+                            <span style="display: block; font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 5px;">YOUR SCORE</span>
+                            <span style="display: block; font-size: 2rem; font-weight: 700; color: #FF6B35;">${playerScore}</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <span style="display: block; font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 5px;">COMPUTER</span>
+                            <span style="display: block; font-size: 2rem; font-weight: 700; color: #FF6B35;">${computerScore}</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <span style="display: block; font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 5px;">ROUNDS</span>
+                            <span style="display: block; font-size: 2rem; font-weight: 700; color: #FF6B35;">${currentRound - 1}</span>
+                        </div>
+                    </div>
+                    <p style="font-size: 1.4rem; margin: 20px 0; color: #FFFFFF;">
+                        ${playerWon ? 
+                            'INCREDIBLE! You defeated the computer! 🏆' : 
+                            'Great effort! You showed amazing skill! 💪'}
+                    </p>
+                    <p style="font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #40E0D0; font-style: italic;">
+                        ${playerWon ? 
+                            'Your reflexes and timing were perfect!' : 
+                            'Every champion faces challenges - you\'re ready for the next one!'}
+                    </p>
+                    <div style="margin-top: 30px;">
+                        <button class="btn" onclick="advanceFromPong()">Continue to Next Challenge</button>
+                        <button class="btn" onclick="startPongGame()" style="background: linear-gradient(45deg, #6c5ce7, #a29bfe);">Play Again</button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('pongCanvas').style.display = 'none';
+            document.querySelector('.pong-game-info').innerHTML = resultHTML;
+        }
+        
+        function advanceFromPong() {
+            gameProgress.game1 = true;
+            document.getElementById('pongCanvas').style.display = 'block';
+            document.querySelector('.pong-game-info').innerHTML = `
+                <div class="game-stats">
+                    <div class="stat">
+                        <span class="stat-label">Player:</span>
+                        <span class="stat-value" id="playerScore">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Computer:</span>
+                        <span class="stat-value" id="computerScore">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Round:</span>
+                        <span class="stat-value" id="currentRound">1</span>
+                    </div>
+                </div>
+            `;
+            goToMain();
+        }
+        
+        // Keyboard event listeners for Pong
+        function handleKeyDown(e) {
+            switch(e.key) {
+                case 'ArrowUp':
+                    e.preventDefault();
+                    keys.up = true;
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    keys.down = true;
+                    break;
+                case 'w':
+                case 'W':
+                    keys.w = true;
+                    break;
+                case 's':
+                case 'S':
+                    keys.s = true;
+                    break;
+            }
+        }
+        
+        function handleKeyUp(e) {
+            switch(e.key) {
+                case 'ArrowUp':
+                    keys.up = false;
+                    break;
+                case 'ArrowDown':
+                    keys.down = false;
+                    break;
+                case 'w':
+                case 'W':
+                    keys.w = false;
+                    break;
+                case 's':
+                case 'S':
+                    keys.s = false;
+                    break;
+            }
+        }
+        
+        // Whac-A-Heart Game Functions
+        function startWhacGame() {
+            whacScore = 0;
+            whacTime = 30;
+            whacHits = 0;
+            whacGameActive = true;
+            activeHearts.clear();
+            
+            // Initialize all hearts
+            for (let i = 0; i < 9; i++) {
+                const heart = document.getElementById(`heart${i}`);
+                heart.innerHTML = `<img src="baldy.png" alt="Baldy" onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">`;
+                heart.classList.remove('active', 'hit');
+                heart.addEventListener('click', () => whacHeart(i));
+            }
+            
+            updateWhacDisplay();
+            
+            // Start countdown timer
+            whacCountdown = setInterval(() => {
+                whacTime--;
+                updateWhacDisplay();
+                
+                if (whacTime <= 0) {
+                    endWhacGame();
+                }
+            }, 1000);
+            
+            // Start heart spawning
+            spawnHeart();
+        }
+        
+        function spawnHeart() {
+            if (!whacGameActive) return;
+            
+            // Choose a random hole that doesn't have an active heart
+            const availableHoles = [];
+            for (let i = 0; i < 9; i++) {
+                if (!activeHearts.has(i)) {
+                    availableHoles.push(i);
+                }
+            }
+            
+            if (availableHoles.length === 0) {
+                // All holes occupied, try again soon
+                setTimeout(spawnHeart, 200);
+                return;
+            }
+            
+            const randomHole = availableHoles[Math.floor(Math.random() * availableHoles.length)];
+            const heart = document.getElementById(`heart${randomHole}`);
+            
+            // Make heart pop up
+            heart.classList.add('active');
+            activeHearts.add(randomHole);
+            
+            // Heart stays up for 1-2 seconds
+            const stayTime = Math.random() * 1000 + 1000;
+            
+            setTimeout(() => {
+                if (heart.classList.contains('active') && !heart.classList.contains('hit')) {
+                    heart.classList.remove('active');
+                    activeHearts.delete(randomHole);
+                }
+            }, stayTime);
+            
+            // Schedule next heart spawn (faster as game progresses)
+            const spawnDelay = Math.max(300, 1000 - (30 - whacTime) * 20);
+            setTimeout(spawnHeart, spawnDelay);
+        }
+        
+        function whacHeart(holeIndex) {
+            const heart = document.getElementById(`heart${holeIndex}`);
+            
+            if (heart.classList.contains('active') && !heart.classList.contains('hit')) {
+                heart.classList.add('hit');
+                heart.classList.remove('active');
+                activeHearts.delete(holeIndex);
+                
+                whacScore += 10;
+                whacHits++;
+                updateWhacDisplay();
+                
+                // Reset heart after animation
+                setTimeout(() => {
+                    heart.classList.remove('hit');
+                }, 400);
+            }
+        }
+        
+        function updateWhacDisplay() {
+            document.getElementById('whacScore').textContent = whacScore;
+            document.getElementById('whacTime').textContent = whacTime;
+            document.getElementById('whacHits').textContent = whacHits;
+        }
+        
+        function endWhacGame() {
+            whacGameActive = false;
+            clearInterval(whacCountdown);
+            activeHearts.clear();
+            
+            // Hide all hearts
+            for (let i = 0; i < 9; i++) {
+                const heart = document.getElementById(`heart${i}`);
+                heart.classList.remove('active', 'hit');
+            }
+            
+            setTimeout(() => {
+                showWhacResults();
+            }, 1000);
+        }
+        
+        function showWhacResults() {
+            let message = '';
+            let subtitle = '';
+            if (whacScore >= 200) {
+                message = 'INCREDIBLE! You are a heart-catching master! 💖';
+                subtitle = 'Your reflexes are absolutely amazing!';
+            } else if (whacScore >= 150) {
+                message = 'Amazing reflexes! You caught so many hearts! ❤️';
+                subtitle = 'You have the speed of love itself!';
+            } else if (whacScore >= 100) {
+                message = 'Great job! Your heart is in the right place! 💕';
+                subtitle = 'You showed real skill and determination!';
+            } else {
+                message = 'Good effort! Love takes practice! 💗';
+                subtitle = 'Every heart you caught shows your dedication!';
+            }
+            
+            const resultHTML = `
+                <div class="quiz-question">
+                    <h4>Whac-A-Heart Challenge Complete!</h4>
+                    <div style="display: flex; justify-content: space-around; margin: 30px 0; background: rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px;">
+                        <div style="text-align: center;">
+                            <span style="display: block; font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 5px;">FINAL SCORE</span>
+                            <span style="display: block; font-size: 2rem; font-weight: 700; color: #FF6B35;">${whacScore}</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <span style="display: block; font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 5px;">HEARTS HIT</span>
+                            <span style="display: block; font-size: 2rem; font-weight: 700; color: #FF6B35;">${whacHits}</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <span style="display: block; font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 5px;">ACCURACY</span>
+                            <span style="display: block; font-size: 2rem; font-weight: 700; color: #FF6B35;">${whacHits > 0 ? Math.round((whacHits / (whacHits + Math.max(0, 30 - whacHits))) * 100) : 0}%</span>
+                        </div>
+                    </div>
+                    <p style="font-size: 1.4rem; margin: 20px 0; color: #FFFFFF;">
+                        ${message}
+                    </p>
+                    <p style="font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #40E0D0; font-style: italic;">
+                        ${subtitle}
+                    </p>
+                    <div style="margin-top: 30px;">
+                        <button class="btn" onclick="advanceFromWhac()">Continue to Next Challenge</button>
+                        <button class="btn" onclick="startWhacGame()" style="background: linear-gradient(45deg, #6c5ce7, #a29bfe);">Play Again</button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('whacGrid').style.display = 'none';
+            document.querySelector('.whac-game-info').innerHTML = resultHTML;
+        }
+        
+        function advanceFromWhac() {
+            gameProgress.game2 = true;
+            document.getElementById('whacGrid').style.display = 'grid';
+            document.querySelector('.whac-game-info').innerHTML = `
+                <div class="game-stats">
+                    <div class="stat">
+                        <span class="stat-label">Score:</span>
+                        <span class="stat-value" id="whacScore">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Time:</span>
+                        <span class="stat-value" id="whacTime">30</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Hearts Hit:</span>
+                        <span class="stat-value" id="whacHits">0</span>
+                    </div>
+                </div>
+            `;
+            goToMain();
+        }
+        
+        // Quiz Game Functions
+        function startQuiz() {
+            currentQuizQuestion = 0;
+            quizScore = 0;
+            showQuizQuestion();
+        }
+        
+        function showQuizQuestion() {
+            if (currentQuizQuestion >= quizQuestions.length) {
+                document.getElementById('quizQuestion').innerHTML = `
+                    <div class="quiz-question">
+                        <h4>Ultimate Supercar Quiz Complete!</h4>
+                        <p style="font-size: 1.4rem; margin: 20px 0;">Final Score: ${quizScore}/${quizQuestions.length}</p>
+                        <p style="font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #40E0D0;">
+                            ${quizScore >= 7 ? 'INCREDIBLE! You are a true supercar master! 🏆' : 
+                             quizScore >= 5 ? 'Impressive! You know your supercars well! 🚗' :
+                             quizScore >= 3 ? 'Not bad! You have some supercar knowledge! 👍' :
+                             'That was challenging! Even experts struggle with these! 💪'}
+                        </p>
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    gameProgress.game3 = true;
+                    goToMain();
+                }, 3000);
+                
+                return;
+            }
+            
+            const question = quizQuestions[currentQuizQuestion];
+            const questionHTML = `
+                <div class="quiz-question">
+                    <h4>Question ${currentQuizQuestion + 1} of ${quizQuestions.length}</h4>
+                    <p style="font-size: 1.3rem; margin: 20px 0; color: #2C3E50;">${question.question}</p>
+                    <div class="quiz-options">
+                        ${question.options.map((option, index) => 
+                            `<button class="option-btn" data-answer="${index}">${option}</button>`
+                        ).join('')}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('quizQuestion').innerHTML = questionHTML;
+            
+            // Add event listeners to option buttons
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    answerQuiz(parseInt(e.target.dataset.answer));
+                });
+            });
+            
+            updateQuizScore();
+        }
+        
+        function answerQuiz(selectedIndex) {
+            const question = quizQuestions[currentQuizQuestion];
+            const buttons = document.querySelectorAll('.option-btn');
+            
+            buttons.forEach((btn, index) => {
+                if (index === question.correct) {
+                    btn.classList.add('correct');
+                } else if (index === selectedIndex && index !== question.correct) {
+                    btn.classList.add('incorrect');
+                }
+                btn.style.pointerEvents = 'none';
+            });
+            
+            if (selectedIndex === question.correct) {
+                quizScore++;
+            }
+            
+            currentQuizQuestion++;
+            setTimeout(showQuizQuestion, 2500);
+        }
+        
+        function updateQuizScore() {
+            document.getElementById('quizScore').textContent = `Score: ${quizScore}/${currentQuizQuestion}`;
+        }
+        
+        // Slideshow Animation
+        let currentSlide = 0;
+        const slides = [
+            { duration: 4000 }, // Our Beautiful Journey
+            { duration: 4000 }, // Adventures Together  
+            { duration: 4000 }, // Endless Love
+            { duration: 4000 }  // Happy Birthday My Love
+        ];
+        
+        function startSlideshow() {
+            const slideElements = document.querySelectorAll('.slide');
+            const progressDots = document.querySelectorAll('.progress-dot');
+            
+            function showNextSlide() {
+                // Hide current slide
+                slideElements[currentSlide].classList.remove('active');
+                progressDots[currentSlide].classList.remove('active');
+                
+                // Move to next slide
+                currentSlide = (currentSlide + 1) % slides.length;
+                
+                // Show next slide
+                slideElements[currentSlide].classList.add('active');
+                progressDots[currentSlide].classList.add('active');
+                
+                // If we've completed all slides, show the final message
+                if (currentSlide === 0) { // Back to first slide means we completed the cycle
+                    setTimeout(() => {
+                        document.getElementById('finalMessage').classList.add('show');
+                    }, 2000);
+                    return; // Stop the slideshow
+                }
+                
+                // Schedule next slide
+                setTimeout(showNextSlide, slides[currentSlide].duration);
+            }
+            
+            // Start the slideshow after initial delay
+            setTimeout(showNextSlide, slides[0].duration);
+        }
+        
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Main menu buttons
+            document.getElementById('challenge1Btn').addEventListener('click', () => {
+                playBackgroundMusic();
+                showPage('game1Page');
+            });
+            document.getElementById('challenge2Btn').addEventListener('click', () => {
+                playBackgroundMusic();
+                showPage('game2Page');
+            });
+            document.getElementById('challenge3Btn').addEventListener('click', () => {
+                playBackgroundMusic();
+                showPage('game3Page');
+            });
+            
+            // Pong game buttons
+            document.getElementById('startPongBtn').addEventListener('click', startPongGame);
+            document.getElementById('pongBackBtn').addEventListener('click', goToMain);
+            
+            // Keyboard event listeners for Pong
+            document.addEventListener('keydown', handleKeyDown);
+            document.addEventListener('keyup', handleKeyUp);
+            
+            // Whac-A-Heart game buttons
+            document.getElementById('startWhacBtn').addEventListener('click', startWhacGame);
+            document.getElementById('whacBackBtn').addEventListener('click', goToMain);
+            
+            // Quiz game buttons
+            document.getElementById('startQuizBtn').addEventListener('click', startQuiz);
+            document.getElementById('quizBackBtn').addEventListener('click', goToMain);
+            
+            // Final page button
+            document.getElementById('playAgainBtn').addEventListener('click', () => {
+                gameProgress = { game1: false, game2: false, game3: false };
+                goToMain();
+            });
+            
+            // Initialize
+            updateProgress();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96c81b03b44003a1',t:'MTc1NDc1MTQ0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
